@@ -1,4 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_fiberbase_login/signup/signup.dart';
+import 'package:get/get.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -58,6 +61,8 @@ class _LoginPageState extends State<LoginPage> {
               ),
               child: TextField(
                 decoration: InputDecoration(
+                  hintText: 'Email',
+                  prefixIcon: Icon(Icons.email),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
                     borderSide: BorderSide(
@@ -96,6 +101,8 @@ class _LoginPageState extends State<LoginPage> {
               ),
               child: TextField(
                 decoration: InputDecoration(
+                  hintText: 'Password',
+                  prefixIcon: Icon(Icons.password),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
                     borderSide: BorderSide(
@@ -158,15 +165,16 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     children: [
                       TextSpan(
-                        text: "Create",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                        ),
-                      ),
+                          text: "Create",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => Get.to(() => SignUp())),
                     ]),
               ),
-            )
+            ),
           ]),
         )
       ]),

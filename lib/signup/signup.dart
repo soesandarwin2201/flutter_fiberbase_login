@@ -1,4 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_fiberbase_login/login/login.dart';
+import 'package:get/get.dart';
 
 class SignUp extends StatelessWidget {
   const SignUp({super.key});
@@ -86,6 +89,7 @@ class SignUp extends StatelessWidget {
           child: TextField(
             decoration: InputDecoration(
               hintText: "Your Password",
+              prefixIcon: Icon(Icons.password),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(30),
                 borderSide: BorderSide(
@@ -121,6 +125,30 @@ class SignUp extends StatelessWidget {
           ),
         ),
         SizedBox(
+          height: 20,
+        ),
+        Center(
+          child: RichText(
+            text: TextSpan(
+                text: "Have an account?",
+                style: TextStyle(
+                  color: Colors.grey[500],
+                  fontSize: 20,
+                ),
+                children: [
+                  TextSpan(
+                    text: "Login",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () => Get.to(() => LoginPage()),
+                  ),
+                ]),
+          ),
+        ),
+        SizedBox(
           height: 40,
         ),
         Center(
@@ -138,7 +166,7 @@ class SignUp extends StatelessWidget {
           height: 10,
         ),
         Padding(
-          padding: EdgeInsets.only(left: 10, right: 10),
+          padding: EdgeInsets.only(left: 15, right: 15),
           child: Wrap(
             children: List<Widget>.generate(3, (index) {
               return CircleAvatar(
