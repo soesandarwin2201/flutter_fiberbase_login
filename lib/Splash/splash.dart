@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_fiberbase_login/controller/auth_controller.dart';
 
 class Splash extends StatelessWidget {
-  const Splash({super.key});
+  final String email;
+  const Splash({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class Splash extends StatelessWidget {
           height: 20,
         ),
         Text(
-          "@email.com",
+          email,
           style: TextStyle(
             fontSize: 14.0,
             fontWeight: FontWeight.w400,
@@ -50,15 +52,25 @@ class Splash extends StatelessWidget {
         SizedBox(
           height: 100.0,
         ),
-        Center(
-          child: Container(
-            margin: EdgeInsets.only(left: 20.0),
-            width: width * 0.5,
-            height: 50.0,
-            child: OutlinedButton(
-              onPressed: () {},
-              child: Text('Sign Out'),
-            ),
+        GestureDetector(
+          onTap: () {
+            AuthController.instance.signout();
+          },
+          child: Center(
+            child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.lightBlue,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                margin: EdgeInsets.only(left: 20.0),
+                width: width * 0.5,
+                height: 50.0,
+                child: Center(
+                  child: Text(
+                    'Sign Out',
+                    style: TextStyle(color: Colors.white, fontSize: 15.0),
+                  ),
+                )),
           ),
         ),
       ]),

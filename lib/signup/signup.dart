@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_fiberbase_login/controller/auth_controller.dart';
 import 'package:flutter_fiberbase_login/login/login.dart';
 import 'package:get/get.dart';
 
@@ -8,6 +9,8 @@ class SignUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var emailController = TextEditingController();
+    var passwordController = TextEditingController();
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
@@ -47,6 +50,7 @@ class SignUp extends StatelessWidget {
             ],
           ),
           child: TextField(
+            controller: emailController,
             decoration: InputDecoration(
               hintText: "Your Email",
               prefixIcon: Icon(Icons.email),
@@ -87,6 +91,8 @@ class SignUp extends StatelessWidget {
             ],
           ),
           child: TextField(
+            controller: passwordController,
+            obscureText: true,
             decoration: InputDecoration(
               hintText: "Your Password",
               prefixIcon: Icon(Icons.password),
@@ -113,15 +119,26 @@ class SignUp extends StatelessWidget {
         SizedBox(
           height: 50,
         ),
-        Center(
-          child: Container(
-            margin: EdgeInsets.only(left: 20.0),
-            width: width * 0.5,
-            height: 50.0,
-            child: OutlinedButton(
-              onPressed: () {},
-              child: Text('Sign Up'),
-            ),
+        GestureDetector(
+          onTap: () {
+            AuthController.instance.register(
+                emailController.text.trim(), passwordController.text.trim());
+          },
+          child: Center(
+            child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.lightBlue,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                margin: EdgeInsets.only(left: 20.0),
+                width: width * 0.5,
+                height: 50.0,
+                child: Center(
+                  child: Text(
+                    'Sign Up',
+                    style: TextStyle(color: Colors.white, fontSize: 15.0),
+                  ),
+                )),
           ),
         ),
         SizedBox(
@@ -167,15 +184,33 @@ class SignUp extends StatelessWidget {
         ),
         Padding(
           padding: EdgeInsets.only(left: 15, right: 15),
-          child: Wrap(
-            children: List<Widget>.generate(3, (index) {
-              return CircleAvatar(
-                radius: 30,
-                backgroundImage: AssetImage('images/' + images[index]),
-              );
-            }),
+          child: Center(
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    AuthController.instance.signInWithGoogle();
+                  },
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage('images/google.png'),
+                    radius: 30,
+                  ),
+                ),
+              ],
+            ),
           ),
         )
+        // Padding(
+        //   padding: EdgeInsets.only(left: 15, right: 15),
+        //   child: Wrap(
+        //     children: List<Widget>.generate(3, (index) {
+        //       return CircleAvatar(
+        //         radius: 30,
+        //         backgroundImage: AssetImage('images/' + images[index]),
+        //       );
+        //     }),
+        //   ),
+        // ),
       ]),
     );
   }

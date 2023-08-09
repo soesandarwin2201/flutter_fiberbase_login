@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_fiberbase_login/controller/auth_controller.dart';
 import 'package:flutter_fiberbase_login/signup/signup.dart';
 import 'package:get/get.dart';
 
@@ -13,6 +14,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
+    var emailController = TextEditingController();
+    var passwordController = TextEditingController();
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -60,6 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
               child: TextField(
+                controller: emailController,
                 decoration: InputDecoration(
                   hintText: 'Email',
                   prefixIcon: Icon(Icons.email),
@@ -100,6 +104,8 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
               child: TextField(
+                controller: passwordController,
+                obscureText: true,
                 decoration: InputDecoration(
                   hintText: 'Password',
                   prefixIcon: Icon(Icons.password),
@@ -141,14 +147,20 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               height: 50,
             ),
-            Center(
-              child: Container(
-                margin: EdgeInsets.only(left: 20.0),
-                width: width * 0.5,
-                height: 50.0,
-                child: OutlinedButton(
-                  onPressed: () {},
-                  child: Text('Sign In'),
+            GestureDetector(
+              onTap: () {
+                AuthController.instance.login(emailController.text.trim(),
+                    passwordController.text.trim());
+              },
+              child: Center(
+                child: Container(
+                  margin: EdgeInsets.only(left: 20.0),
+                  width: width * 0.5,
+                  height: 50.0,
+                  child: OutlinedButton(
+                    onPressed: () {},
+                    child: Text('Sign In'),
+                  ),
                 ),
               ),
             ),
